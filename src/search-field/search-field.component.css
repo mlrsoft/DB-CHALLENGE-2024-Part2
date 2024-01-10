@@ -1,0 +1,171 @@
+.sapphire-search-field {
+  --sapphire-search-field-font-name: 'Danske Text v2';
+  --sapphire-search-field-size-width-control: 300px;
+  --sapphire-search-field-size-spacing-control-gap: 8px;
+  --sapphire-search-field-size-radius: 48px;
+  --sapphire-search-field-color-content-input: hsl(202, 100%, 11%);
+  --sapphire-search-field-size-font-content: 17px;
+  --sapphire-search-field-size-height-field: 48px;
+  --sapphire-search-field-color-background: hsl(216, 29%, 97%);
+  --sapphire-search-field-size-spacing-control-horizontal: 16px;
+  --sapphire-search-field-size-font-weight-input: 400;
+  --sapphire-search-field-color-caret: hsl(203, 100%, 39%);
+  --sapphire-search-field-size-height-field: 48px;
+  --sapphire-search-field-color-content-placeholder: hsl(205, 23%, 37%);
+  --sapphire-search-field-size-focus-ring: 2px;
+  --sapphire-search-field-color-focus-ring: hsl(203, 80%, 50%);
+  --sapphire-search-field-opacity-disabled: 0.4;
+  --sapphire-search-field-size-height-field: 48px;
+  --sapphire-search-field-size-height-field: 48px;
+  --sapphire-search-field-color-content-button-default: hsl(205, 23%, 37%);
+  --sapphire-search-field-time-transition: 0.1s;
+  --sapphire-search-field-color-content-button-hover: hsl(203, 27%, 33%);
+  --sapphire-search-field-color-content-button-active: hsl(202, 100%, 11%);
+  --sapphire-search-field-time-transition: 0.1s;
+  --sapphire-search-field-time-transition: 0.1s;
+  --sapphire-search-field-time-transition: 0.1s;
+  --sapphire-search-field-time-transition: 0.1s;
+  --sapphire-search-field-color-content-icon: hsl(205, 23%, 37%);
+  --sapphire-search-field-size-spacing-control-horizontal: 16px;
+}
+
+.sapphire-search-field {
+  box-sizing: border-box;
+  font-family: var(--sapphire-search-field-font-name);
+  width: var(--sapphire-search-field-size-width-control);
+  /* The below is meant to address a font rendering quirk in OSX where the text
+   * looks bolder than intended due to subpixel rendering. This quirk generally
+   * occurs for bold fonts on dark backgrounds but depending on the font, it
+   * can happen in other contexts as well.
+   *
+   * These do not do anything except in webkit browsers & firefox on OSX.
+   *
+   * For more details see:
+   * - https://azuredevops/Main/WCCJ/_git/sapphire/pullRequest/212710?path=%2Fpackages%2Fcss%2Fcomponents%2Fbutton%2Fbutton.module.css&discussionId=1507702&_a=files
+   * - https://usabilitypost.com/2012/11/05/stop-fixing-font-smoothing/
+   */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sapphire-search-field-size-spacing-control-gap);
+  border-radius: var(--sapphire-search-field-size-radius);
+  cursor: text;
+  color: var(--sapphire-search-field-color-content-input);
+  font-size: var(--sapphire-search-field-size-font-content);
+  height: var(--sapphire-search-field-size-height-field);
+  background-color: var(--sapphire-search-field-color-background);
+}
+
+.sapphire-search-field .sapphire-search-field__input:last-child {
+  padding-right: var(--sapphire-search-field-size-spacing-control-horizontal);
+}
+
+.sapphire-search-field__input {
+  all: unset;
+  flex: 1;
+  height: 100%;
+  min-width: 0;
+  font-weight: var(--sapphire-search-field-size-font-weight-input);
+  caret-color: var(--sapphire-search-field-color-caret);
+  position: relative;
+  padding-left: calc(var(--sapphire-search-field-size-height-field));
+}
+
+/**
+ * Placeholder
+ */
+.sapphire-search-field__input::placeholder {
+  opacity: 1; /* some browsers set a lower than 1 opacity */
+  color: var(--sapphire-search-field-color-content-placeholder);
+}
+
+/**
+ * Focus
+ */
+.sapphire-search-field.is-focus,
+.sapphire-search-field:focus-within {
+  box-shadow: inset 0 0 0 var(--sapphire-search-field-size-focus-ring)
+    var(--sapphire-search-field-color-focus-ring);
+}
+
+/**
+ * Disabled
+ */
+.sapphire-search-field.is-disabled {
+  opacity: var(--sapphire-search-field-opacity-disabled);
+  cursor: not-allowed;
+}
+
+.sapphire-search-field.is-disabled .sapphire-search-field__input {
+  cursor: not-allowed;
+}
+
+/**
+ * Clear button
+ */
+/* Remove the inner padding and cancel buttons for input[type="search"] in Chrome and Safari on macOS. */
+.sapphire-search-field__input::-webkit-search-cancel-button,
+.sapphire-search-field__input::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+.sapphire-search-field__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: var(--sapphire-search-field-size-height-field);
+  width: var(--sapphire-search-field-size-height-field);
+  color: var(--sapphire-search-field-color-content-button-default);
+  cursor: default;
+  flex-shrink: 0;
+
+  transition: transform var(--sapphire-search-field-time-transition);
+}
+
+.sapphire-search-field__button:not(.js-hover):hover,
+.sapphire-search-field__button.is-hover {
+  color: var(--sapphire-search-field-color-content-button-hover);
+}
+
+.sapphire-search-field__button:active,
+.sapphire-search-field__button:not(.js-hover):active,
+.sapphire-search-field__button.is-active {
+  color: var(--sapphire-search-field-color-content-button-active);
+}
+
+.sapphire-search-field.is-disabled .sapphire-search-field__button,
+.sapphire-search-field__input:read-only + .sapphire-search-field__button {
+  display: none;
+}
+
+.sapphire-search-field__input:placeholder-shown
+  + .sapphire-search-field__button,
+.sapphire-search-field__input--empty + .sapphire-search-field__button {
+  /*
+   * Css only solution to:
+   *  - hide the clear button when the input is empty.
+   *  - Apply a gentle transition on appearance/disappearance
+   * IMPORTANT: there must be a placeholder provided for :placeholder-shown to
+   * work. " " can be set as placeholder as a fallback, or
+   * sapphire-search-field__input--empty class can be used instead.
+   */
+  opacity: 0;
+  width: 0; /* To not cover the input when invisible. */
+  transform: scale(0.85);
+  transition: transform var(--sapphire-search-field-time-transition),
+    opacity var(--sapphire-search-field-time-transition),
+    width var(--sapphire-search-field-time-transition)
+      /* Zero duration will kill the transition */
+      var(--sapphire-search-field-time-transition)
+      /* Delaying to prevent width transition*/;
+}
+
+/*
+ * Search icon
+ */
+.sapphire-search-field__icon {
+  color: var(--sapphire-search-field-color-content-icon);
+  display: inline-flex; /* Not to take more height than the icon */
+  position: absolute;
+  margin-left: var(--sapphire-search-field-size-spacing-control-horizontal);
+}

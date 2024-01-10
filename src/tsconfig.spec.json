@@ -1,0 +1,17 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/spec",
+    "types": [
+      "cypress",
+      "node",
+      "cypress-real-events",
+      "@testing-library/cypress"
+    ]
+  },
+  "files": [
+    "../cypress/support/component.ts",
+    "../cypress/support/commands.ts"
+  ],
+  "include": ["**/*.cy.ts", "**/*.d.ts"]
+}
