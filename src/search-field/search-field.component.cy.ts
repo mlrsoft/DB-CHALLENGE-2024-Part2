@@ -32,14 +32,14 @@ describe("SearchField", () => {
     cy.mount(example);
     cy.get("input").type("search query");
     cy.findByRole("button").click();
-    cy.get("input").should("be.focused");
+    cy.get("input").should("have.value", "");
   });
 
   it("keeps the focus after the clear button is pressed", () => {
     cy.mount(example);
     cy.get("input").type("search query");
     cy.findByRole("button").click();
-    cy.get("input").should("have.value", "");
+    cy.get("input").should("be.focused");
   });
 
   it("sets the expected aria-label on the clear button", () => {
