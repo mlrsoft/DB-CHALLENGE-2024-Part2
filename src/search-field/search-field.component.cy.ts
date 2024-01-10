@@ -32,6 +32,13 @@ describe("SearchField", () => {
     cy.mount(example);
     cy.get("input").type("search query");
     cy.findByRole("button").click();
+    cy.get("input").should("be.focused");
+  });
+
+  it("keeps the focus after the clear button is pressed", () => {
+    cy.mount(example);
+    cy.get("input").type("search query");
+    cy.findByRole("button").click();
     cy.get("input").should("have.value", "");
   });
 
