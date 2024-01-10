@@ -49,13 +49,14 @@ export class SearchFieldInputDirective {
       this.clear();
     } else if (event.key === 'Enter') {
       this.submitted.emit(this.elementRef.nativeElement.value);
-    }
+    }    
   }
 
   clear() {
     const element: HTMLInputElement | undefined = this.elementRef.nativeElement;
     if (element) {
       element.value = '';
+      element.focus()
     }
   }
 }
