@@ -41,6 +41,12 @@ export class SearchFieldInputDirective {
   @Input()
   placeholder?: string;
 
+  @Input() 
+  ngModel: string = ""
+  @Output() 
+  ngModelChange = new EventEmitter<string>()
+
+
   constructor(private elementRef: ElementRef) {}
 
   @HostListener('keydown', ['$event'])
@@ -51,12 +57,12 @@ export class SearchFieldInputDirective {
       this.submitted.emit(this.elementRef.nativeElement.value);
     }    
   }
-
   clear() {
     const element: HTMLInputElement | undefined = this.elementRef.nativeElement;
     if (element) {
       element.value = '';
       element.focus()
+      this.ngModelChange.emit("")
     }
   }
 }
