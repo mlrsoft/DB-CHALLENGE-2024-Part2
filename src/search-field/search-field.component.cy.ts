@@ -1,3 +1,6 @@
+import { FormsModule } from "@angular/forms";
+import { SapphireSearchFieldModule } from "./search-field.module";
+
 const example = /* HTML */ `<sp-search-field>
   <input spSearchFieldInput aria-label="Search" placeholder="Search" />
 </sp-search-field>`;
@@ -34,6 +37,69 @@ describe("SearchField", () => {
     cy.findByRole("button").click();
     cy.get("input").should("have.value", "");
   });
+
+
+  it("clears the model value when the clear button is pressed (ngModelChange)", () => {
+    const onSubmit = cy.stub();
+    const onModelChanged = cy.stub();
+    cy.mount(
+      `<sp-search-field>
+          <input
+            spSearchFieldInput
+            (spSearchFieldSubmitted)="onSubmit($event)"
+            (ngModelChange)="onModelChanged($event)"
+            aria-label="Search"
+            placeholder="Search"          
+          />
+        </sp-search-field> 
+       `,
+      { 
+        componentProperties: { onModelChanged, onSubmit  }
+      },
+      
+    );  
+    cy.get("input").type("123");
+    cy.realPress("Enter")
+    cy.findByRole("button").click();
+    cy.wrap(onModelChanged).should("be.calledWith", "");
+    cy.get("input").realPress("Enter")
+    cy.wrap(onSubmit).should("be.calledWith", "");
+  })
+
+  /**
+   * 
+   */
+  it("clears the model value when the clear button is pressed [(ngModel)]", () => {
+    const onSubmit = cy.stub();
+
+    let value: string = ""
+    cy.mount(
+      `<sp-search-field>
+          <input
+            spSearchFieldInput
+            (spSearchFieldSubmitted)="onSubmit($event)"
+            [(ngModel)]="value"
+            aria-label="Search"
+            placeholder="Search"          
+          />
+       </sp-search-field>`,
+      { 
+        componentProperties: { value, onSubmit  }
+      },
+      
+    );  
+    cy.get("input").type("123");
+    cy.realPress("Enter")
+    cy.wrap(onSubmit).should("be.calledWith", "123");
+    onSubmit.resetHistory()  
+    cy.findByRole("button").click();
+    cy.realPress("Enter")
+    cy.wrap(onSubmit).should("be.calledWith", "");
+
+  })
+
+
+
 
   it("keeps the focus after the clear button is pressed", () => {
     cy.mount(example);
